@@ -5,8 +5,14 @@ import { auth } from '../firebase';
 import firebase from "firebase";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 const AdminScreen = ({navigation,route}) => {
+  {/*
+     au-dessous çe sont les states où on sauvgarde les valeurs
+    */}
     const [bottleInfo,setBottleInfo]=useState([]);
     const [wineBottle,setWineBottle]=useState("");
+     {/*
+     au-dessous ç'est la fonction pour créer l'entête de la page
+    */}
     useLayoutEffect(() => {
         navigation.setOptions({
           headerLeft: ()=> null,
@@ -33,24 +39,11 @@ const AdminScreen = ({navigation,route}) => {
         });
       }, [navigation]);
      
-
+ {/*
+     au-dessous ç'est la fonction pour éffacer la bouteille choisie
+    */}
       const deleteDoc = async () =>{
         await firebase.firestore().collection('wineBottles').doc(wineBottle).delete();
-      }
-      const searchBottle = ()=>{
-        firebase
-        .firestore()
-        .collection("wineBottles")
-        .where("name", "==", wineBottle)
-        .get().then(((snapshot) => {
-          setBottleInfo(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          );
-        }));
-
       }
     return (
         <KeyboardAvoidingView style={{flex:1}}>
@@ -68,10 +61,6 @@ const AdminScreen = ({navigation,route}) => {
 
       />
       </View>
-      {/*<TouchableOpacity title="Login" style={styles.inputContainer} onPress={()=>searchBottle()}>
-      <AntDesign name="search1" size={24} color="black" />
-        <Text style={styles.textInput1}>Chercher</Text>
-    </TouchableOpacity>*/}
         <TouchableOpacity title="delete" style={styles.inputContainer} onPress={()=>deleteDoc()}>
         <AntDesign name="delete" size={24} color="black" />
         <Text style={styles.textInput1}>Effacer</Text>

@@ -11,6 +11,9 @@ import * as Font from 'expo-font';
 import { AppLoading } from 'expo';
 require("firebase/firebase-storage");
 const MainScreen = ({navigation}) => {
+  {/*
+     au-dessous ce sont les states où on remplit les valeurs qu'on veut
+    */}
     const defaultImage= require("../assets/LoginRegisterBG.jpeg");
     const [pickedImagePath, setPickedImagePath] = useState("");
     const [hasCameraPermission, setHasCameraPermission] = useState("");
@@ -21,6 +24,9 @@ const MainScreen = ({navigation}) => {
     const [imageUrl,setImageUrl] = useState("");
     const [nomVin,setNomVin]= useState("");
     const [uploading, setUploading] = useState(false);
+    {/*
+     au-dessous c'est L'URL pour demander de l'API de faire un OCR où k est la variable URL de l'image
+    */}
     const originURL ="https://apitest2ndjs.herokuapp.com/ssd?k=";
     const fetchFonts = () => {
       return Font.loadAsync({
@@ -30,69 +36,26 @@ const MainScreen = ({navigation}) => {
       useEffect(()=>{
         fetchFonts();
       });
-    /*async loadFonts() {
-      await Font.loadAsync({
-        // Load a font `Montserrat` from a static resource
-        Montserrat: require("../assets/Cinzel/"),
-      });
-    }*/
     const storage = firebase.storage();
-  useEffect(() => {
-    (async () => {
-      const  cameraStatus  = await Camera.requestCameraPermissionsAsync();
-      if (cameraStatus !== "granted") {
-        alert('Sorry, we need camera permissions to make this work!');
-      }
-      else{
-      setHasCameraPermission('granted');    
-        }
-      const galleryStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (galleryStatus !== 'granted') {
-            console.log('Sorry, we need camera roll permissions to make this work!');
-      }else{
-            setHasGalleryPermission('granted');   
-          }
-    })();
-    if (hasCameraPermission === "") {
-      return <View />;
-    }
-    if (hasCameraPermission === false) {
-      return <Text>No access to camera</Text>;
-    }
-    if (hasGalleryPermission === "") {
-      return <View />;
-    }
-    if (hasGalleryPermission === false) {
-      return <Text>No access to Gallery</Text>;
-    }
-  }
-  , []);
-
+    {/*
+     au-dessous c'est la fonctions pour demander les permissions de camera et de galerie
+    */}
+    useEffect(() => {
+      (async () => {
+        const cameraStatus = await Camera.requestPermissionsAsync();
+        setHasCameraPermission(cameraStatus.status === "granted");
   
-
-    /*useEffect(() => {
-        (async () => {
-          if (Platform.OS !== 'web') {
-            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-            if (status !== 'granted') {
-              alert('Sorry, we need camera roll permissions to make this work!');
-            }
-          }
-        })();
-      }, []);
-       const response = await fetch(pickedImagePath);
-    const blob = await response.blob();
-    var task = firebase.storage().ref().child("images/");
-    task.put(blob);
-      */
+        const galleryStatus =
+          await ImagePicker.requestMediaLibraryPermissionsAsync();
+        setHasGalleryPermission(galleryStatus.status === "granted");
+      })();
+    }, []);
+     {/*
+     au-dessous c'est la fonction pour envoyer l'image a firebase pour la créer un URL
+    */}
     const uploadImage = async () => {
     const response = await fetch(pickedImagePath);
     const blob = await response.blob();
-    /*var task = firebase.storage().ref().child("images/");
-    task.put(blob);*/
-      /*const childPath = `images/${
-        firebase.auth().currentUser.uid
-      }/${Math.random().toString(36)}`;*/
         const task = firebase.storage().ref().child("images/").put(blob);
         storage.ref('images/').getDownloadURL()
   .then((url) => {
@@ -103,21 +66,9 @@ const MainScreen = ({navigation}) => {
   });
 
       };
-     /* const fetchProfilePicture = () => {
-        firebase
-          .firestore()
-          .collection("users")
-          .doc(firebase.auth().currentUser.uid)
-          .get()
-          .then((snapshot) => {
-            console.log("pic", snapshot.data().profileURL);
-            if (snapshot.data().profileURL === "") {
-              setImageUrl("");
-            } else {
-              setImageUrl(snapshot.data().profileURL);
-            }
-          });
-      };*/
+      {/*
+     au-dessous c'est la fonction pour envoyer l'URL à firestore
+    */}
       const savePostData = (downloadURL) => {
         firebase
           .firestore()
@@ -130,6 +81,9 @@ const MainScreen = ({navigation}) => {
             setUploading(false);
           });
       };
+      {/*
+     au-dessous c'est la fonction pour chercher l'url de l'image
+    */}
       const getImagePublicUrl = () => {
         firebase
           .firestore()
@@ -140,6 +94,9 @@ const MainScreen = ({navigation}) => {
             console.log("wliwli",snapshot.data().photoOcr);
           });
       };
+      {/*
+     au-dessous c'est la fonction pour déclancher l'ocr
+    */}
       const getOCRFromApiAsync = async () => {
         uploadImage();
         try {
@@ -156,6 +113,9 @@ const MainScreen = ({navigation}) => {
           setOcrText("ok");
         }
       };
+      {/*
+     au-dessous c'est la fonction pour prendre une photo
+    */}
       const  takePicture = async () => {
         if (camera) {
             camera.takePictureAsync().then((data)=>{
@@ -166,9 +126,15 @@ const MainScreen = ({navigation}) => {
             setPickedImagePath("false");
         }
      };
+     {/*
+     au-dessous c'est la fonction pour se déconnecter
+    */}
      const signOut = () =>{
       firebase.auth().signOut().then(navigation.navigate('Login'));
      }
+     {/*
+     au-dessous c'est la fonction pour choisir une image de la galerie
+    */}
       const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -182,6 +148,9 @@ const MainScreen = ({navigation}) => {
         }
         await uploadImage();
       }
+      {/*
+     au-dessous ç'est la fonction pour créer l'entête de la page
+    */}
       useLayoutEffect(() => {
         navigation.setOptions({
           headerLeft: ()=> null,
@@ -215,6 +184,9 @@ const MainScreen = ({navigation}) => {
 
             <TextInput style={styles.input}  onChangeText={(text)=>setNomVin(text.toLowerCase())} />
             <View style={styles.cameraContainer}>
+            {/*
+     au-dessous c'est le composant de la camera active
+    */}
           <Camera
             ref={(ref) => setCamera(ref)}
             style={styles.fixedRatio}

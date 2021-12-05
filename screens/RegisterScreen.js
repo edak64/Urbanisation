@@ -5,11 +5,16 @@ import firebase from "firebase";
 import {Entypo,Ionicons,FontAwesome} from '@expo/vector-icons'
 import { ScrollView } from 'react-native-gesture-handler';
 const RegisterScreen = ({navigation}) => {
+  {/*
+     au-dessous çe sont les states où on sauvgarde les valeurs
+    */}
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [repeatedPassword,setRepPassword] = useState("");
     const [name,setName] = useState("");
-
+{/*
+     au-dessous ç'est la fonction pour s'enregistrer
+    */}
     const register = () =>{
         firebase
         .auth()
@@ -29,7 +34,9 @@ const RegisterScreen = ({navigation}) => {
           console.log(error);
         });
     }
-  
+  {/*
+     au-dessous ç'est la fonction pour créer l'entête de la page
+    */}
     useLayoutEffect(() => {
       navigation.setOptions({
         headerLeft: ()=> null,

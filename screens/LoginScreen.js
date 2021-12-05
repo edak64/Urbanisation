@@ -5,9 +5,15 @@ import { auth } from '../firebase';
 import firebase from "firebase";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 const LoginScreen = ({navigation}) => {
+  {/*
+     au-dessous çe sont les states où on sauvgarde les valeurs
+    */}
     const [email,setEmail] = useState("");
     const [password,setPassword] = useState("");
     const [error,setError] = useState("");
+    {/*
+     au-dessous ç'est la fonction pour créer l'entête de la page
+    */}
     useLayoutEffect(() => {
       navigation.setOptions({
         headerLeft: ()=> null,
@@ -33,7 +39,9 @@ const LoginScreen = ({navigation}) => {
         },
       });
     }, [navigation]);
-
+{/*
+     au-dessous ç'est la fonction pour savoir si l'utilisateur s'est déja connecté
+    */}
     useEffect(() => {
         const unsubscribe =firebase.auth().onAuthStateChanged((authUser)=>{
             if(authUser && email!=="eddy@gmail.com"){
@@ -42,6 +50,9 @@ const LoginScreen = ({navigation}) => {
         });
         return unsubscribe;
     }, []);
+    {/*
+     au-dessous ç'est la fonction pour se connecter
+    */}
     const signIn = () => {
       if(email!=="eddy@gmail.com"){
       firebase.auth()

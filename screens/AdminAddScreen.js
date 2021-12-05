@@ -5,6 +5,9 @@ import { auth } from '../firebase';
 import firebase from "firebase";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 const AdminScreen = ({navigation,route}) => {
+  {/*
+     au-dessous çe sont les states où on sauvgarde les valeurs
+    */}
     const [bottleInfo,setBottleInfo]=useState([]);
     const [name,setName]=useState("");
     const [chateau,setChateau]=useState("");
@@ -14,6 +17,9 @@ const AdminScreen = ({navigation,route}) => {
     const [taste2,setTaste2]=useState("");
     const [taste3,setTaste3]=useState("");
     var tastes=[];
+    {/*
+     au-dessous ç'est la fonction pour créer l'entête de la page
+    */}
     useLayoutEffect(() => {
         navigation.setOptions({
           headerLeft: ()=> null,
@@ -39,7 +45,9 @@ const AdminScreen = ({navigation,route}) => {
           },
         });
       }, [navigation]);
-      
+      {/*
+     au-dessous c'est la fonction qu'on ajoute avec les commentaires
+    */}
       const addBottle = ()=>{
         tastes=[];
         tastes=[taste1,taste2,taste3];
@@ -56,7 +64,11 @@ const AdminScreen = ({navigation,route}) => {
         tastes: tastes,
       });
       }
+      {/*
+     au-dessous sont le saisie de text qu'on écrit au dedans les valeurs pour ajouter la bouteille de vin
+    */}
     return (
+      
         <KeyboardAvoidingView style={{flex:1}}>
         <ImageBackground
         style={styles.WineBottle}

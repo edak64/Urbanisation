@@ -151,7 +151,7 @@ const VinScreen = ({navigation,route}) => {
             </Text>
           ))}</View>
           {/*
-     au-dessous on affiche les commentaires sur la bouteille de vin dans les CustomListItem qu'on à crée
+     au-dessous on affiche les commentaires sur la bouteille de vin dans les customListItem qu'on  crée
     */}
           {comments.map(({ id, data: {email,message,timestamp} }) => (
             <CustomListItem

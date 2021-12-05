@@ -16,6 +16,9 @@ export default function App() {
     <Stack.Navigator screenOptions={{
       
     }}>
+    {/*
+      Çe sont les Pages de L'application plaçées içi pour la navigation dans le Stack
+    */}
     <Stack.Screen name="Login" component={LoginScreen}/>
     <Stack.Screen name="Register" component={RegisterScreen}/>
     <Stack.Screen name="MainPage" component={MainScreen}/>
