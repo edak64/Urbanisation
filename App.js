@@ -1,13 +1,29 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import React, { useState } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import MainScreen from './screens/MainScreen'
+import VinScreen from './screens/VinScreen';
+import AdminScreen from './screens/AdminScreen';
+import AdminAddScreen from "./screens/AdminAddScreen"
 export default function App() {
+  const Stack = createStackNavigator();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+    <Stack.Navigator screenOptions={{
+      
+    }}>
+    <Stack.Screen name="Login" component={LoginScreen}/>
+    <Stack.Screen name="Register" component={RegisterScreen}/>
+    <Stack.Screen name="MainPage" component={MainScreen}/>
+    <Stack.Screen name="BouteillePage" component={VinScreen}/>
+    <Stack.Screen name="Admin" component={AdminScreen}/>
+    <Stack.Screen name="AdminAdd" component={AdminAddScreen}/>
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
