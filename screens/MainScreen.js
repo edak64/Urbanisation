@@ -27,7 +27,7 @@ const MainScreen = ({navigation}) => {
     {/*
      au-dessous c'est L'URL pour demander de l'API de faire un OCR où k est la variable URL de l'image
     */}
-    const originURL ="https://apitest2ndjs.herokuapp.com/ssd?k=";
+    const originURL ="http://localhost:5000/ssd?k=";
     const fetchFonts = () => {
       return Font.loadAsync({
       'cinzel': require('../assets/Cinzel/static/Cinzel-Medium.ttf'),
