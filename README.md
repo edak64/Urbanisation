@@ -8,6 +8,8 @@ Before you begin, ensure you have met the following requirements:
 
 - You have installed Node.js version 16. If not, you can download it [here](https://nodejs.org/en/). If you are using NVM (Node Version Manager), you can switch to the correct version with the command: `nvm use 16`
 - You have installed Expo CLI version 4.4.8. If not, you can install it using the command: `npm install -g expo-cli@4.4.8`
+- You should have the credentials of your Firebase project, which you will use to replace the placeholders in the `firebase.js` file.
+- Make sure to have our API running alongside the app on `localhost:5000` for full functionality.
 
 ## Getting Started
 
@@ -15,12 +17,13 @@ To launch the app, follow these steps:
 
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
-3. Run `npm install` to install all dependencies.
-4. Start the app with the `expo start` command. This will start the Metro Bundler and open up a new tab in your web browser.
+3. Replace the placeholders in the `firebase.js` file with your Firebase project's credentials.
+4. Run `npm install` to install all dependencies.
+5. Start the app with the `expo start` command. This will start the Metro Bundler and open up a new tab in your web browser.
 
 ## Login Information
 
-- To login as an administrator, register with the email `eddy@gmail.com`. Afterwards, login with the same email. As an administrator, you have the ability to add or erase a bottle of wine to or from the database.
+- To login as an administrator, register with the email `eddy@gmail.com`. Afterwards, login with the same email. As an administrator, you have the ability to add or erase a bottle to or from the database.
 - To login as a regular user, you can register and login with any other email.
 
 ## Running the OCR API
@@ -29,4 +32,5 @@ The Optical Character Recognition (OCR) API is utilized to recognize and extract
 
 1. Navigate to the API folder in the project directory.
 2. Run `npm install` to install the necessary dependencies.
-3. Start the API server with the command: `node index.js`.
+3. Start the API server with the command: `node index.js`. Make sure that the API server is running on `localhost:5000`.
+
