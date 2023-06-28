@@ -228,22 +228,29 @@ const MainScreen = ({navigation}) => {
         <TextInput style={styles.input} placeholder='Changer le Résultat ...'  onChangeText={(text)=>setNomVin(text.toLowerCase())} />
         </ScrollView>
         <View style={styles.footer}>
+    <View style={styles.footerInner}>
         <TouchableOpacity activeOpacity={0.5} >
-        <Entypo
-            name="folder-images"
-            size={40}
-            color="white"
-            onPress={()=>pickImage()}
-            style={{marginRight:'25%'}}
-          />
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5} >
-          <MaterialCommunityIcons name="ocr" size={40}  color="white" onPress={()=>getOCRFromApiAsync()} />
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.5} style={{marginLeft:'25%'}} >
-          <FontAwesome name="search" size={40} color="white" onPress={()=>navigation.navigate('BouteillePage',{nomBouteille:nomVin})} />
-          </TouchableOpacity>
-      </View>
+            <Entypo
+                name="folder-images"
+                size={40}
+                color="white"
+                onPress={()=>pickImage()}
+            />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.5} >
+            <MaterialCommunityIcons name="ocr" size={40}  color="white" onPress={()=>getOCRFromApiAsync()} />
+        </TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.5}>
+            <FontAwesome name="search" size={40} color="white"     onPress={() => {
+        if(nomVin.trim() !== "") {
+            navigation.navigate('BouteillePage',{nomBouteille:nomVin})
+        } else {
+            alert("Please enter a search term before proceeding.")
+        }
+    }} />
+        </TouchableOpacity>
+    </View>
+</View>
         </KeyboardAvoidingView>
     )
 }
@@ -320,17 +327,20 @@ const styles = StyleSheet.create({
       alignItems:'center',
     },
     footer: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "center",
-      width: "100%",
-      padding: 15,
-      margin: "auto",
-      backgroundColor:'#6d071a',
-      borderTopRightRadius:40,
-      borderTopLeftRadius:40,
-      alignItems:'center'
-    },
+      width: '100%',
+      backgroundColor: '#6d071a',
+      borderTopRightRadius: 40,
+      borderTopLeftRadius: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  
+  footerInner: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '70%', 
+  },
     textInput: {
       bottom: 0,
       height: 40,
