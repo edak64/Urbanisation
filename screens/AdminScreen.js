@@ -43,7 +43,11 @@ const AdminScreen = ({navigation,route}) => {
      au-dessous ç'est la fonction pour éffacer la bouteille choisie
     */}
       const deleteDoc = async () =>{
-        await firebase.firestore().collection('wineBottles').doc(wineBottle).delete();
+        if(wineBottle !== "") {
+          await firebase.firestore().collection('wineBottles').doc(wineBottle).delete();
+        } else {
+          console.log("No wine bottle specified.");
+        }
       }
     return (
         <KeyboardAvoidingView style={{flex:1}}>
