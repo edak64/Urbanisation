@@ -109,13 +109,24 @@ const LoginScreen = ({navigation}) => {
             onChangeText={(text)=>setPassword(text)}
           />
           </View>
+          
         <TouchableOpacity title="Login" style={styles.inputContainer} onPress={()=>signIn()}>
         <FontAwesome name="sign-in" size={24} color="black" />
-        <Text style={styles.textInput}>Login</Text>
+        <TextInput
+            editable={false}
+            placeholder="Login"
+            placeholderTextColor="#102F44"
+            style={styles.textInput}
+          />
         </TouchableOpacity>
         <TouchableOpacity title="register" onPress={()=>navigation.navigate("Register")} style={styles.inputContainer}>
         <Entypo name="add-user" size={24} color="black" />
-        <Text style={styles.textInput}>Enregister</Text>
+        <TextInput
+            editable={false}
+            placeholder="Enregistrer"
+            placeholderTextColor="#102F44"
+            style={styles.textInput}
+          />
         </TouchableOpacity>
       <View>
         <Text style={styles.error}>{error}</Text>
@@ -174,6 +185,7 @@ const styles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 10,
         width: '100%',
+        minWidth:'80%'
       },
       firstInputContainer: {
         flexDirection: "row",
@@ -203,5 +215,23 @@ const styles = StyleSheet.create({
         fontSize: 15,
         textAlign: "center",
         marginTop: 15,
+      },
+      buttonContainer: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: 'space-between',
+        marginHorizontal: 55,
+        borderWidth: 2,
+        paddingHorizontal: 10,
+        borderColor: "#102F44",
+        borderRadius: 5,
+        borderTopColor: "#102F44",
+        borderRightColor: "#102F44",
+        borderBottomColor: "#102F44",
+        borderLeftColor: "#102F44",
+        paddingVertical: 5,
+        marginTop: 15,
+        marginBottom: 10,
+        width: '100%',
       },
 })
