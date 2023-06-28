@@ -72,6 +72,8 @@ const VinScreen = ({navigation,route}) => {
           } else {
             // If the wine bottle does not exist, show an alert
             alert("Bottle not found.");
+            // Navigate back to the main page
+            navigation.navigate('MainPage');
           }
         })
         .catch(error => {
