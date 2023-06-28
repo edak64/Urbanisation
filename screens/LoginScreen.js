@@ -54,28 +54,30 @@ const LoginScreen = ({navigation}) => {
      au-dessous ç'est la fonction pour se connecter
     */}
     const signIn = () => {
-      if(email!=="eddy@gmail.com"){
-      firebase.auth()
-      .signInWithEmailAndPassword(email, password)
-      .then((result) => {
-        console.log(result);
-        setError("");
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.code === "auth/network-request-failed") {
-          setError("No internet connection" );
-        } else if (error.code === "auth/wrong-password") {
-          setError("Invalid Password");
-        } else if (error.code === "auth/user-not-found") {
-          setError("No user found\nKindly Register if you don't have an account");
-        } else if (error.code === "auth/invalid-email") {
-          setError("Email is badly formatted");
-        }
-      });
-      if(error===""){
-        navigation.navigate("MainPage")
-        }
+      if (email.trim() === "" || password.trim() === "") {
+        setError("Email and password fields cannot be empty");
+        return;
+    }
+      if(email !== "eddy@gmail.com"){
+        firebase.auth()
+        .signInWithEmailAndPassword(email, password)
+        .then((result) => {
+          console.log(result);
+          setError("");
+          navigation.navigate("MainPage");
+        })
+        .catch((error) => {
+          console.log(error);
+          if (error.code === "auth/network-request-failed") {
+            setError("No internet connection" );
+          } else if (error.code === "auth/wrong-password") {
+            setError("Invalid Password");
+          } else if (error.code === "auth/user-not-found") {
+            setError("No user found\nKindly Register if you don't have an account");
+          } else if (error.code === "auth/invalid-email") {
+            setError("Email is badly formatted");
+          }
+        });
       }else{
         navigation.navigate("Admin");
       }
