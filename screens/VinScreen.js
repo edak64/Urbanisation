@@ -44,23 +44,40 @@ const VinScreen = ({navigation,route}) => {
   {/*
      au-dessous ç'est la fonction pour chercher les commentaires sur la bouteille de vin
     */}
-  useEffect(()=>{
-    const unsubscribe =firebase
-      .firestore()
-      .collection("wineBottles")
-      .doc(route.params.nomBouteille)
-      .collection("comments")
-      .get()
-      .then(((snapshot) => {
-        setComments(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        );
-      }))
-      return unsubscribe;
-  },[]);
+    useEffect(() => {
+      // Check if the wine bottle exists in the Firestore database
+      firebase
+        .firestore()
+        .collection("wineBottles")
+        .doc(route.params.nomBouteille)
+        .get()
+        .then(docSnapshot => {
+          if (docSnapshot.exists) {
+            // If the wine bottle exists, subscribe to its comments
+            const unsubscribe = firebase
+              .firestore()
+              .collection("wineBottles")
+              .doc(route.params.nomBouteille)
+              .collection("comments")
+              .onSnapshot((snapshot) => {
+                setComments(
+                  snapshot.docs.map((doc) => ({
+                    id: doc.id,
+                    data: doc.data(),
+                  }))
+                );
+              });
+            // Return the unsubscribe function to clean up on component unmount
+            return unsubscribe;
+          } else {
+            // If the wine bottle does not exist, show an alert
+            alert("Bottle not found.");
+          }
+        })
+        .catch(error => {
+          console.error("Error checking if document exists: ", error);
+        });
+    }, []);
   {/*
      au-dessous ç'est la fonction pour créer l'entête de la page
     */}
