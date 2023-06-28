@@ -111,11 +111,21 @@ const RegisterScreen = ({navigation}) => {
               </View>
         <TouchableOpacity title="register" onPress={()=>register()} style={styles.inputContainer}>
         <Entypo name="add-user" size={24} color="black" />
-        <Text style={styles.textInput}>Enregister</Text>
+        <TextInput
+            editable={false}
+            placeholder="Enregistrer"
+            placeholderTextColor="#102F44"
+            style={styles.textInput}
+          />
         </TouchableOpacity>
         <TouchableOpacity title="Login" style={styles.inputContainer} onPress={()=>navigation.navigate("Login")}>
         <FontAwesome name="sign-in" size={24} color="black" />
-        <Text style={styles.textInput}>Login</Text>
+        <TextInput
+            editable={false}
+            placeholder="Login"
+            placeholderTextColor="#102F44"
+            style={styles.textInput}
+          />
         </TouchableOpacity>
         </View>
         </ScrollView>
