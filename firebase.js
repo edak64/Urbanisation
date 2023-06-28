@@ -6,15 +6,15 @@ import 'firebase/firestore';
 // import 'firebase/storage';
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey://REPLACE WITH API KEY,
-  authDomain: //REPLACE WITH AUTH DOMAIN,
-  projectId: //REPLACE WITH PROJECT ID,
-  storageBucket: //REPLACE WITH STORAGE BUCKET,
-  messagingSenderId: //REPLACE WITH MESSAGE SENDER ID,
-  appId:// REPLACE WITH APP ID,
-  measurementId:// REPLACE WITH MEASUREMENT ID,
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyDkpiYntswSTmr8tCAC1BReIz9FebIvG6Q",
+    authDomain: "vinshazam.firebaseapp.com",
+    projectId: "vinshazam",
+    storageBucket: "vinshazam.appspot.com",
+    messagingSenderId: "528934365986",
+    appId: "1:528934365986:web:b71d873f11e28faf42537b",
+    measurementId: "G-EQX762TEYJ"
+  };
 
 // Initialize Firebase
 let app;
