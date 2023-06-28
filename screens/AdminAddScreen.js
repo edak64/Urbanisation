@@ -48,22 +48,38 @@ const AdminScreen = ({navigation,route}) => {
       {/*
      au-dessous c'est la fonction qu'on ajoute avec les commentaires
     */}
-      const addBottle = ()=>{
-        tastes=[];
-        tastes=[taste1,taste2,taste3];
-        Keyboard.dismiss();
-        firebase
-      .firestore()
-      .collection("wineBottles")
-      .doc(name)
-      .set({
-        chateau: chateau,
-        image:photoUrl,
-        name: name,
-        rating: quality,
-        tastes: tastes,
-      });
+    const addBottle = () => {
+      if(name === "" || chateau === "" || photoUrl === "" || quality === "" || taste1 === "" || taste2 === "" || taste3 === ""){
+          alert("Please fill all the fields");
+          return;
       }
+  
+      let tastes = [taste1, taste2, taste3];
+      Keyboard.dismiss();
+  
+      firebase
+          .firestore()
+          .collection("wineBottles")
+          .doc(name)
+          .set({
+              chateau: chateau,
+              image: photoUrl,
+              name: name,
+              rating: quality,
+              tastes: tastes,
+          }).then(() => {
+              setName("");
+              setChateau("");
+              setPhotoUrl("");
+              setQuality("");
+              setTaste1("");
+              setTaste2("");
+              setTaste3("");
+              alert("Bottle Added Successfully!");
+          }).catch((error) => {
+              alert(error.message);
+          });
+  }
       {/*
      au-dessous sont le saisie de text qu'on écrit au dedans les valeurs pour ajouter la bouteille de vin
     */}
